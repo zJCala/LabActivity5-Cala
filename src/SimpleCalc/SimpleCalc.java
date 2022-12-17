@@ -19,24 +19,28 @@ public class SimpleCalc extends JFrame{
         btnCompute.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                double num1 = Double.parseDouble(tfNumber1.getText());
-                double num2 = Double.parseDouble(tfNumber2.getText());
-                double result = 0;
+                try {
+                    double num1 = Double.parseDouble(tfNumber1.getText());
+                    double num2 = Double.parseDouble(tfNumber2.getText());
+                    double result = 0;
 
-                if(cbOperations.getSelectedItem().equals("-")){
-                    result = num1-num2;
+                    if(cbOperations.getSelectedItem().equals("-")){
+                        result = num1-num2;
+                    }
+                    if(cbOperations.getSelectedItem().equals("+")){
+                        result = num1+num2;
+                    }
+                    if(cbOperations.getSelectedItem().equals("/")){
+                        result = num1/num2;
+                    }
+                    if(cbOperations.getSelectedItem().equals("*")){
+                        result = num1*num2;
+                    }
+                    String str = String.valueOf(result);
+                    lblResult.setText(str);
+                } catch(NumberFormatException a){
+                    JOptionPane.showMessageDialog(null, "INVALID");
                 }
-                if(cbOperations.getSelectedItem().equals("+")){
-                    result = num1+num2;
-                }
-                if(cbOperations.getSelectedItem().equals("/")){
-                    result = num1/num2;
-                }
-                if(cbOperations.getSelectedItem().equals("*")){
-                    result = num1*num2;
-                }
-                String str = String.valueOf(result);
-                lblResult.setText(str);
             }
         });
     }
