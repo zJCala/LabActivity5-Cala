@@ -1,16 +1,19 @@
 package FoodOrdering;
 
-import LeapYear.LeapYear;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DecimalFormat;
+
+class SelectException extends Exception {
+    public SelectException(String s){
+        super(s);
+    }
+}
 
 public class FoodOrder extends JFrame{
     private JPanel panel1;
     private JCheckBox cPizza;
-    private JRadioButton noneRadioButton;
+    private JRadioButton rbNone;
     private JButton btnOrder;
     private JCheckBox cBurger;
     private JCheckBox cSoftDrinks;
@@ -21,14 +24,28 @@ public class FoodOrder extends JFrame{
     private JRadioButton rb15;
     private JCheckBox cFries;
 
+
+
     public FoodOrder(){
+        ButtonGroup disc = new ButtonGroup();
+        disc.add(rbNone);
+        disc.add(rb5);
+        disc.add(rb10);
+        disc.add(rb15);
         btnOrder.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                double cost = Calculate();
-                JOptionPane.showMessageDialog(null, "The total price is Php "+cost);
-
+                try {
+                    if(!cPizza.isSelected() && !cBurger.isSelected() && !cFries.isSelected() && !cSoftDrinks.isSelected() && !cTea.isSelected() && !cSundae.isSelected()){
+                        throw (new SelectException("Must pick 1 item"));
+                    }
+                    double cost = Calculate();
+                    JOptionPane.showMessageDialog(null, "The total price is Php " + cost);
+                }
+                catch (SelectException a){
+                    JOptionPane.showMessageDialog(null, "" +a.getMessage());
+                }
             }
         });
     }
@@ -70,7 +87,7 @@ public class FoodOrder extends JFrame{
 
     public static void main(String[] args) {
         FoodOrder food = new FoodOrder();
-        food.setTitle("Leap Year Checker");
+        food.setTitle("Food Ordering System");
         food.setContentPane(food.panel1);
         food.setSize(500, 500);
         food.setDefaultCloseOperation(EXIT_ON_CLOSE);

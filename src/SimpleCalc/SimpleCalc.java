@@ -47,7 +47,7 @@ public class SimpleCalc extends JFrame{
 
     public static void main(String[] args) {
         SimpleCalc calcu = new SimpleCalc();
-        calcu.setTitle("Leap Year Checker");
+        calcu.setTitle("Simple Calculator");
         calcu.setContentPane(calcu.panel1);
         calcu.setSize(500, 400);
         calcu.setDefaultCloseOperation(EXIT_ON_CLOSE);
